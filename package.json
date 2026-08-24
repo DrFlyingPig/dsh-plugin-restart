@@ -1,0 +1,31 @@
+{
+  "name": "dsh-plugin-restart",
+  "version": "1.0.0",
+  "description": "DSH host plugin: adds a \"Restart / 重启\" command to the DSH Desktop system-tray menu.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "desktop",
+    "tray",
+    "restart"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+# dsh-plugin-restart bundle patch.
+#
+# Inserts the desktop-restart host plugin into the Cordis tree. When this package
+# is installed as a profile bundle (dsh plugin add), the DSH Desktop loads it in
+# the Electron main process, where the host `desktopRuntime` service is already
+# provided -- the same seam used by the built-in desktop-terminal and
+# desktop-diagnostics tray items.
+- insert:
+    - id: desktop-restart
+      name: dsh-plugin-restart
