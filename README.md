@@ -9,15 +9,20 @@
 
 ## 安装
 
-```bash
-# 从 npm / 仓库安装到桌面端 profile
-dsh plugin --profile desktop add dsh-plugin-restart
+> ⚠️ **npm 上目前还是 1.x（旧架构，在 DSH 0.2 上不生效）。** 在 2.0.0 发布到 npm 之前，请用 `link:` 装本地目录，
+> 否则 `dsh plugin add dsh-plugin-restart` 拉到的会是那个已经不工作的旧版本。
 
-# 本地开发（不打包，直接链目录）
+```bash
+# 本地开发（推荐：直接链仓库目录，改完热加载）
 dsh plugin --profile desktop add link:D:\project\dsh-plugin-restart
+
+# 发布到 npm 之后
+dsh plugin --profile desktop add dsh-plugin-restart
 ```
 
 装完重启一次 DSH Desktop（或让 `patchReload: live` 自己热加载），然后在任意会话里输入 `/restart`。
+
+自测：`npm test`（不启动 DSH，用假 ctx 校验命令注册形状、参数解析和「非桌面宿主必须拒绝」）。
 
 ## 用法
 

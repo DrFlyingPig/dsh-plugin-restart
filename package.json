@@ -9,6 +9,9 @@
     "cordis.patch.yml",
     "README.md"
   ],
+  "scripts": {
+    "test": "node test/contract.mjs"
+  },
   "keywords": [
     "dsh",
     "dsh-plugin",
