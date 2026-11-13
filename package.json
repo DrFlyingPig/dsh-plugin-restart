@@ -1,15 +1,9 @@
 {
   "name": "dsh-plugin-restart",
-  "version": "1.0.0",
-  "description": "DSH host plugin: adds a \"Restart / 重启\" command to the DSH Desktop system-tray menu.",
+  "version": "2.0.0",
+  "description": "在 DSH Desktop 里用 /restart 一键重启整个桌面应用（宿主进程自己完成杀进程 + 重新拉起，不依赖已移除的 desktopRuntime）",
   "type": "module",
   "main": "lib/index.js",
-  "exports": {
-    ".": {
-      "default": "./lib/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "files": [
     "lib",
     "cordis.patch.yml",
@@ -17,12 +11,18 @@
   ],
   "keywords": [
     "dsh",
+    "dsh-plugin",
     "deepseek-harness",
-    "desktop",
-    "tray",
     "restart"
   ],
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrFlyingPig/dsh-plugin-restart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DrFlyingPig/dsh-plugin-restart/issues"
+  },
+  "homepage": "https://github.com/DrFlyingPig/dsh-plugin-restart#readme",
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"

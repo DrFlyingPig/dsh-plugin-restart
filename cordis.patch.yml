@@ -1,10 +1,15 @@
-# dsh-plugin-restart bundle patch.
+# ============================================================================
+# dsh-plugin-restart —— DSH bundle patch
+# ============================================================================
+# 这是插件的“挂载声明”。DSH 启动时按 bundle 层栈叠加各插件 patch，
+# 本文件把 /restart 命令注册到当前 profile。
 #
-# Inserts the desktop-restart host plugin into the Cordis tree. When this package
-# is installed as a profile bundle (dsh plugin add), the DSH Desktop loads it in
-# the Electron main process, where the host `desktopRuntime` service is already
-# provided -- the same seam used by the built-in desktop-terminal and
-# desktop-diagnostics tray items.
+# 安装方式：
+#   dsh plugin --profile desktop add dsh-plugin-restart
+# 或本地开发安装：
+#   dsh plugin --profile desktop add link:<本目录绝对路径>
+# ============================================================================
+
 - insert:
     - id: desktop-restart
       name: dsh-plugin-restart
