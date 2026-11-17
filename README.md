@@ -89,7 +89,12 @@ ctx.desktopRuntime.registerTrayItem({ group: 'status', label: () => '重启', in
 2. 插件分离启动重启助手 `lib/relaunch.js`（`detached` + 同一份 Electron 二进制当 Node 跑，**用户机器上不需要额外装 Node**）；
 3. 助手等 `delay` 毫秒后让主进程退出：先礼貌（`taskkill` / `SIGTERM`），2.5 秒还没走就强制；
 4. 主进程一死，宿主收到 IPC 断开自己收尾；助手再确认宿主真的退出了——**这一步不能省**，宿主不死就会一直占着 profile 锁，新实例起不来；
-5. 助手用干净的环境（删掉 `ELECTRON_RUN_AS_NODE`，否则新实例会当成 Node 跑）重新拉起应用。
+5. 助手用干净的环境（删掉 `ELECTRON_RUN_AS_NODE`，否则新实例会当成 Node 跑）重新拉起应用，
+   并且**不带 `windowsHide`**——Windows 上它会变成 `STARTUPINFO` 的 `SW_HIDE`，而 Win32 规定
+   进程第一次 `ShowWindow` 会忽略传入的参数、改用 `STARTUPINFO` 里的值，结果就是应用起来了、
+   窗口却一直藏在后台（v2.2.1 修的就是这个「静默重启」）。
+
+拉起来之后窗口会自己出现并加载会话页面，和手动双击图标启动没有区别。
 
 任何一步失败都只写日志并退出，**绝不重复拉起**，避免两个实例抢同一个 profile。
 

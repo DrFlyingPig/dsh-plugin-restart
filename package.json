@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-restart",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "在 DSH Desktop 里重启整个桌面应用：标题栏「应用」旁边的「重启」按钮 + /restart 命令（宿主进程自己完成杀进程 + 重新拉起，不依赖已移除的 desktopRuntime）",
   "type": "module",
   "main": "lib/index.js",

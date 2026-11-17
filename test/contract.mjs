@@ -8,6 +8,7 @@
  * 运行：npm test   （等价于 node test/contract.mjs）
  */
 
+import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -170,6 +171,13 @@ check('parseOptions 拒绝乱写的参数', threw)
 
 const detected = mod.detectDesktop()
 check('detectDesktop 在普通 Node 下拒绝', detected.ok === false && detected.reason.includes('DSH Desktop'), JSON.stringify(detected))
+
+// ⑤ 回归守卫：拉起应用那一步不能带 windowsHide。
+// Windows 上 windowsHide 会变成 STARTUPINFO 的 SW_HIDE，而 Win32 规定进程第一次
+// ShowWindow 会忽略 nCmdShow、改用 STARTUPINFO 的值 —— 结果就是应用起来了、窗口却一直藏着。
+const relaunchSource = fs.readFileSync(path.join(HERE, '..', 'lib', 'relaunch.js'), 'utf8')
+const spawnCall = relaunchSource.slice(relaunchSource.indexOf('spawn(executable'), relaunchSource.indexOf('child.on('))
+check('拉起应用时不传 windowsHide（否则窗口不显示）', spawnCall.length > 0 && !/windowsHide/u.test(spawnCall), spawnCall.match(/windowsHide[^\n]*/u)?.[0] ?? 'none')
 
 console.log(failures.length === 0 ? '\nALL PASS' : `\n${failures.length} FAILURE(S):\n${failures.join('\n')}`)
 process.exit(failures.length === 0 ? 0 : 1)
